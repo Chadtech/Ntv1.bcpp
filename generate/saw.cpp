@@ -32,7 +32,7 @@ int main (int argumentCount, char * arguments[]){
 
   double enharmonicity = atof(arguments[5]);
 
-  double decay = atof(arguments[6]);
+  double harmonicDecay = atof(arguments[6]);
 
   short output[sustain];
   
@@ -59,8 +59,29 @@ int main (int argumentCount, char * arguments[]){
     outputIndex = 0;
     while (outputIndex < sustain){
 
-      int enharmonic = 1;
-      int decay = 1;
+      float enharmonic = 1;
+      if (enharmonicity != 0){
+        enharmonic = 1 + enharmonicity;
+        enharmonic = pow(enharmonic, harmonic - 1);
+      }
+
+      float decay = 1;
+      if (harmonicDecay != 1){
+        if (harmonic > 1){
+          decay = pow(outputIndex, 2);
+          decay++;
+          decay = pow(decay, 0.5);
+          decay = outputIndex / decay;
+          decay = pow(decay, harmonicDecay * harmonic);
+          decay = 1 - decay;
+        }
+        else{
+          decay = pow(outputIndex, 2);
+          decay++;
+          decay = pow(decay, 0.5);
+          decay = outputIndex / decay;
+        }
+      }
 
       float thisSample = maxAmplitude * decay;
       if ((harmonic % 2) == 1){
