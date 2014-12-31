@@ -6,6 +6,7 @@
 
 #include "./../wavWrite.h"
 
+// Arguments are:
 // fileName frequency duration
 
 int main (int argumentCount, char * arguments[]){
@@ -13,9 +14,6 @@ int main (int argumentCount, char * arguments[]){
   int maxAmplitude = 32767;
 
   const char * fileName = arguments[1];
-
-  std::string wavFileName = "";
-
 
   double frequency = atof(arguments[2]);
   frequency /= 44100;
