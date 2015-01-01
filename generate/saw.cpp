@@ -7,7 +7,7 @@
 #include "./../wavWrite.h"
 
 // Arguments are:
-// fileName frequency duration harmonicCount enharmonicity decay
+// fileName frequency duration harmonicCount enharmonicity
 
 int main (int argumentCount, char * arguments[]){
   double pi = 3.14159;
@@ -32,8 +32,6 @@ int main (int argumentCount, char * arguments[]){
 
   double enharmonicity = atof(arguments[5]);
 
-  double harmonicDecay = atof(arguments[6]);
-
   short output[sustain];
   
   int outputIndex = 0;
@@ -41,7 +39,6 @@ int main (int argumentCount, char * arguments[]){
     output[outputIndex] = 0;
     outputIndex++;
   }
-
 
   int volumeNumerator = 2 * harmonicCount;
   int volumeDenominator = harmonicCount - 1;
@@ -65,25 +62,7 @@ int main (int argumentCount, char * arguments[]){
         enharmonic = pow(enharmonic, harmonic - 1);
       }
 
-      float decay = 1;
-      if (harmonicDecay != 1){
-        if (harmonic > 1){
-          decay = pow(outputIndex, 2);
-          decay++;
-          decay = pow(decay, 0.5);
-          decay = outputIndex / decay;
-          decay = pow(decay, harmonicDecay * harmonic);
-          decay = 1 - decay;
-        }
-        else{
-          decay = pow(outputIndex, 2);
-          decay++;
-          decay = pow(decay, 0.5);
-          decay = outputIndex / decay;
-        }
-      }
-
-      float thisSample = maxAmplitude * decay;
+      float thisSample = maxAmplitude;
       if ((harmonic % 2) == 1){
         thisSample *= -1;
       }
@@ -91,13 +70,11 @@ int main (int argumentCount, char * arguments[]){
 
       float sineArgument = outputIndex * pi * 2;
       sineArgument *= harmonic * enharmonic;
-      //std::cout << "SINE ARGUMENT IS " << sineArgument;
       sineArgument *= frequency;
 
       thisSample *= sin(sineArgument);
 
       short sample = thisSample;
-      //std::cout << sample << " " << sample * volumeAdjust << "\n"; 
       sample *= volumeAdjust;
 
       output[outputIndex] += sample;
