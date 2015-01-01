@@ -27,10 +27,10 @@ int main (int argumentCount, char * arguments[]){
   }
 
   short output[sustain];
+  short silence = 0;
   int outputIndex = 0;
   while (outputIndex < sustain){
-    short thisSample = 0;
-    output[outputIndex] = thisSample;
+    output[outputIndex] = silence;
     outputIndex++;
   }
 
