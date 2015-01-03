@@ -20,7 +20,6 @@ int main (int argumentCount, char * arguments[]){
   int sustain;
   std::string sustainAsString = arguments[3];
 
-
   int stringIndex = 0;
   while (stringIndex < sustainAsString.size()){
     int thisDigitOfSustain = sustainAsString[stringIndex] - 48;
@@ -37,7 +36,7 @@ int main (int argumentCount, char * arguments[]){
     outputIndex++;
   }
 
-  writeWAVData(fileName, output, sustain, 44100, 1);
+  writeWAVData(fileName, output, sustain * 2, 44100, 1);
 
   return 0;
 }

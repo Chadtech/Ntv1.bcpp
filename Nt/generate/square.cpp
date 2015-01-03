@@ -82,7 +82,7 @@ int main (int argumentCount, char * arguments[]){
     harmonic++;
   }
 
-  writeWAVData(fileName, output, sustain, 44100, 1);
+  writeWAVData(fileName, output, sustain * 2, 44100, 1);
 
   return 0;
 }

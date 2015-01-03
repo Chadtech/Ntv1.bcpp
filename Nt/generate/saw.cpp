@@ -10,8 +10,8 @@
 // fileName frequency duration harmonicCount enharmonicity
 
 int main (int argumentCount, char * arguments[]){
-  double pi = 3.14159;
-  int maxAmplitude = 32767;
+  const double pi = 3.14159;
+  const int maxAmplitude = 32767;
 
   const char * fileName = arguments[1];
 
@@ -84,7 +84,7 @@ int main (int argumentCount, char * arguments[]){
     harmonic++;
   }
 
-  writeWAVData(fileName, output, sustain, 44100, 1);
+  writeWAVData(fileName, output, sustain * 2, 44100, 1);
 
   return 0;
 }
