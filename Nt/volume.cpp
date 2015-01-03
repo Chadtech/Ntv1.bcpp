@@ -22,8 +22,6 @@ int main (int argumentCount, char * arguments[]) {
     datumIndex++;
   }
 
-  int numberOfChannels = data[22];
-
   datumIndex = 44;
   int audioDataLength = (length - 44) / 2;
   short audioData [audioDataLength];
