@@ -89,6 +89,12 @@ int main (int argumentCount, char * arguments[]) {
 
     writeWAVData(saveFile, averagedData, (audioDataLength + 1) * 2, 44100, 1);
   }
+  else{
+    
+    const char * saveFile = arguments[3];
+
+    writeWAVData(saveFile, audioData, audioDataLength * 2, 44100, 1);
+  }
 
   return 0;    
 }
