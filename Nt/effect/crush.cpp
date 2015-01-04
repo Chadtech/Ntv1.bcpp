@@ -3,7 +3,7 @@
 #include "./../wavWrite.h"
 using namespace std;
 
-// openFile saveFile
+// openFile crush saveFile
 int main (int argumentCount, char * arguments[]) {
   const char * openFile = arguments[1];
 
@@ -46,17 +46,22 @@ int main (int argumentCount, char * arguments[]) {
 
   // 
 
-  // Inverting
+  // Crush
 
   //
 
+  int crush = atoi(arguments[2]);
+
   datumIndex = 0;
   while (datumIndex < audioDataLength){
-    audioData[datumIndex] = -1 * audioData[datumIndex];
+    short thisSample = audioData[datumIndex];
+    thisSample /= crush;
+    thisSample *= crush;
+    audioData[datumIndex] = thisSample;;
     datumIndex++;
   }
 
-  const char * saveFile = arguments[2];
+  const char * saveFile = arguments[3];
 
   writeWAVData(saveFile, audioData, audioDataLength * 2, 44100, 1);
   return 0;    
