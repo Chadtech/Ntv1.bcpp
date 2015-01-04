@@ -50,8 +50,6 @@ int main (int argumentCount, char * arguments[]) {
 
   //
 
-  int crush = atoi(arguments[2]);
-
   datumIndex = 0;
   while (datumIndex < audioDataLength){
 
