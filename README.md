@@ -1,0 +1,1 @@
+I am rewriting my audio library, Noitech, in C++.
