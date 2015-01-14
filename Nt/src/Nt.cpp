@@ -1,8 +1,11 @@
-
-
 #include <nan.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <iostream>
+
+// For sine function
+#include <math.h>
+
 
 using namespace v8;
 using v8::String;
@@ -14,9 +17,37 @@ NAN_METHOD(version){
   NanReturnValue(ntVersion1);
 }
 
+// Arguments are:
+// frequency duration
+NAN_METHOD(sineGenerate){
+  NanScope();
+
+  float sustain = args[1]->Uint32Value();
+  float frequency = args[0]->NumberValue();
+  frequency /= 44100;
+
+  Local<Array> output = NanNew<Array>(sustain);
+
+  double pi = 3.14159;
+  int maxAmplitude = 32767;
+
+  int sampleIndex = 0;
+  while (sampleIndex < sustain){
+    short sample = maxAmplitude;
+    sample *= sin(pi * frequency * sampleIndex * 2);
+    output->Set(sampleIndex, NanNew(sample));
+    sampleIndex++;
+  }
+
+  NanReturnValue(output);
+}
+
 void Init(Handle<Object> exports){
   exports->Set(NanNew("version"),
     NanNew<FunctionTemplate>(version)->GetFunction());
+
+  exports->Set(NanNew("sineGenerate"),
+    NanNew<FunctionTemplate>(sineGenerate)->GetFunction());
 }
 
 NODE_MODULE(NtCpp, Init);
