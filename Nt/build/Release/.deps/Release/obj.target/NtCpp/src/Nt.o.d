@@ -10,7 +10,8 @@ Release/obj.target/NtCpp/src/Nt.o: ../src/Nt.cpp \
   /Users/Chadtech/.node-gyp/0.10.29/deps/v8/include/v8stdint.h \
   /Users/Chadtech/.node-gyp/0.10.29/src/node_object_wrap.h \
   /Users/Chadtech/.node-gyp/0.10.29/src/node_buffer.h \
-  /Users/Chadtech/.node-gyp/0.10.29/src/node_version.h
+  /Users/Chadtech/.node-gyp/0.10.29/src/node_version.h \
+  ../src/./generate/sineGenerate.h ../src/./wavWrite.h
 ../src/Nt.cpp:
 ../node_modules/nan/nan.h:
 /Users/Chadtech/.node-gyp/0.10.29/deps/uv/include/uv.h:
@@ -23,3 +24,5 @@ Release/obj.target/NtCpp/src/Nt.o: ../src/Nt.cpp \
 /Users/Chadtech/.node-gyp/0.10.29/src/node_object_wrap.h:
 /Users/Chadtech/.node-gyp/0.10.29/src/node_buffer.h:
 /Users/Chadtech/.node-gyp/0.10.29/src/node_version.h:
+../src/./generate/sineGenerate.h:
+../src/./wavWrite.h:

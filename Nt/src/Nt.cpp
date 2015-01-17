@@ -6,6 +6,9 @@
 // For sine function
 #include <math.h>
 
+#include "./generate/sineGenerate.h"
+
+#include "./wavWrite.h"
 
 using namespace v8;
 using v8::String;
@@ -18,29 +21,37 @@ NAN_METHOD(version){
 }
 
 // Arguments are:
-// frequency duration
+// filename frequency duration
 NAN_METHOD(sineGenerate){
   NanScope();
 
-  float sustain = args[1]->Uint32Value();
-  float frequency = args[0]->NumberValue();
+  v8::String::Utf8Value param1(args[0]->ToString());
+  std::string fileName0 = std::string(*param1);
+  const char * fileName = fileName0.c_str();
+
+  double frequency = args[1]->NumberValue();
   frequency /= 44100;
 
-  Local<Array> output = NanNew<Array>(sustain);
+  int sustain = args[2]->Uint32Value();
 
-  double pi = 3.14159;
-  int maxAmplitude = 32767;
+  short * audio = new short[sustain];
+  int confirmation = sineGenerate1(frequency, sustain, audio);
 
-  int sampleIndex = 0;
-  while (sampleIndex < sustain){
-    short sample = maxAmplitude;
-    sample *= sin(pi * frequency * sampleIndex * 2);
-    output->Set(sampleIndex, NanNew(sample));
-    sampleIndex++;
-  }
+  writeWAVData( fileName, audio, sustain * 2, 44100, 1 );
 
-  NanReturnValue(output);
+  NanReturnUndefined();
 }
+
+  // Local<Array> output = NanNew<Array>(sustain);
+
+  // int sampleIndex = 0;
+  // while (sampleIndex < sustain){
+  //   short sample = audio[sampleIndex];
+  //   output->Set(sampleIndex, NanNew(sample));
+  //   sampleIndex++;
+  // }
+
+  // NanReturnValue(output);
 
 void Init(Handle<Object> exports){
   exports->Set(NanNew("version"),
@@ -51,28 +62,3 @@ void Init(Handle<Object> exports){
 }
 
 NODE_MODULE(NtCpp, Init);
-
-// NAN_METHOD(d4NkMeM35) {
-//   printf("DANK MEMES\n");
-//   NanReturnUndefined();
-// }
-
-// NAN_METHOD(DANKMEMES){
-//   NanScope();
-//   v8::String::Utf8Value param1(args[0]->ToString());
-//   std::string DANKMEMES = std::string(*param1);
-//   const char * xXxDaNkMeMeSxXx = DANKMEMES.c_str();
-//   Local <String> DaNkMeMeS = NanNew<String>(xXxDaNkMeMeSxXx);
-//   NanReturnValue(DaNkMeMeS);
-// }
-
-// void Init(Handle<Object> exports) {
-//   exports->Set(NanNew("dAnKmEmEs"), 
-//     NanNew<FunctionTemplate>(d4NkMeM35)->GetFunction());
-
-//   exports->Set(NanNew("DANKMEMES"), 
-//     NanNew<FunctionTemplate>(DANKMEMES)->GetFunction());
-// }
-
-// // This --------v has to be the same as the binding.gyp target_name
-// NODE_MODULE(DANKMEMES, Init); 
